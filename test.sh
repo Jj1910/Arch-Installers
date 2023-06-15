@@ -2,12 +2,12 @@
 
 setfont ter-132n
 
-efi=$(ls /sys/firmware/efi/efivars)
+timedatectl set-timezone America/New_York
 
-if [${efi} = "0"]
-then
-    echo "Not Booting in EFI Mode, quitting..."
-    return 1
-fi
+lsblk
 
-echo "Booted in EFI Mode"
+echo "Enter block device"
+
+read blockdevice
+
+cfdisk $blockdevice
