@@ -41,3 +41,9 @@ mkdir /mnt/home
 mount /dev/$homepartition /mnt/home
 
 lsblk
+
+echo "Enter packages you want installed (Default base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim)
+
+read packages
+
+pacstrap -K /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim
