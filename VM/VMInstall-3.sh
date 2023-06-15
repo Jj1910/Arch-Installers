@@ -25,3 +25,5 @@ picom &
 exec i3" >> .xinitrc
 
 echo "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx -vt1" >> .bash_profile
+
+sudo systemctl enable --now sddm
