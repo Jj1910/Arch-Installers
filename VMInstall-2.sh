@@ -38,6 +38,8 @@ echo "wait"
 
 read $null
 
+echo "$user ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
