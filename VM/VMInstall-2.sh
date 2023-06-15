@@ -44,7 +44,7 @@ ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
 
-pacman -S grub efibootmgr dosfstools mtools
+pacman -S grub
 
 mkinitcpio -p linux
 
