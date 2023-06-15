@@ -48,11 +48,11 @@ mount /dev/$homepartition /mnt/home
 
 lsblk
 
-echo "Enter packages you want installed (Default base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim)"
+echo "Enter packages you want installed (Default base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim vim git)"
 
 read packages
 
-pacstrap -K /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim
+pacstrap -K /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim vim git
 
 genfstab -U /mnt > /mnt/etc/fstab
 
