@@ -55,3 +55,5 @@ read packages
 pacstrap -K /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd gvim
 
 genfstab -U /mnt > /mnt/etc/fstab
+
+arch-chroot /mnt
