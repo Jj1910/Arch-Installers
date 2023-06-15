@@ -1,4 +1,4 @@
-arch-chroot /mnt
+#!/bin/bash
 
 echo "Enter root password"
 
