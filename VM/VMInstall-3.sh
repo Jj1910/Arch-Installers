@@ -12,7 +12,7 @@ cd ~/
 
 cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 
-sudo pacman -S i3 xorg xorg-xinit nitrogen dmenu alacritty firefox thunar gvim sddm
+sudo pacman -S i3 xorg xorg-xinit nitrogen dmenu alacritty firefox thunar gvim sddm pipewire-jack pipewire-alsa pipewire-pulse qjackctl pavucontrol pass polybar ttf-firacode-nerd
 
 cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty/alacritty.yml
 
@@ -23,5 +23,3 @@ picom &
 exec i3" >> .xinitrc
 
 echo "[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx -vt1" >> .bash_profile
-
-sudo pacman -S pipewire-jack pipewire-alsa pipewire-pulse qjackctl pavucontrol
