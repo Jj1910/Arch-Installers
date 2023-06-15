@@ -14,6 +14,8 @@ cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
 
 sudo pacman -S i3 xorg xorg-xinit nitrogen dmenu alacritty firefox thunar gvim sddm pipewire-jack pipewire-alsa pipewire-pulse qjackctl pavucontrol pass polybar ttf-firacode-nerd
 
+mkdir ~/.config/alacritty
+
 cp /usr/share/doc/alacritty/example/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 touch .xinitrc
