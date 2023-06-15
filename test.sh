@@ -10,4 +10,34 @@ echo "Enter block device"
 
 read blockdevice
 
-cfdisk $blockdevice
+cfdisk /dev/$blockdevice
+
+lsblk
+
+echo "Enter swap partition"
+
+read swappartition
+
+echo "Enter root partition"
+
+read rootpartition
+
+echo "Enter home partition"
+
+read homepartition
+
+mkfs.ext4 /dev/$rootpartition
+
+mkfs.ext4 /dev/$homepartition
+
+mkswap /dev/$swappartition
+
+swapon /dev/$swappartition
+
+mount /dev/$rootpartition /mnt
+
+mkdir /mnt/home
+
+mount /dev/$homepartition /mnt/home
+
+lsblk
