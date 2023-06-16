@@ -26,6 +26,14 @@ echo "Enter Home Partition"
 
 read homepart
 
+mkfs.ext4 /dev/$rootpart
+
+mkfs.ext4 /dev/$homepart
+
+mkswap /dev/$swappart
+
+swapon /dev/$swappart
+
 mount /dev/$rootpart /mnt
 
 mkdir /mnt/home
