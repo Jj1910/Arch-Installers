@@ -42,11 +42,11 @@ mount /dev/$homepart /mnt/home
 
 lsblk
 
-echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd mdadm ntfs03g nvidia gvim git vim openssh)"
+echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd mdadm ntfs-3g nvidia gvim git vim openssh)"
 
 read packages
 
-pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd mdadm ntfs03g nvidia gvim git vim openssh
+pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd mdadm ntfs-3g nvidia gvim git vim openssh
 
 genfstab -U /mnt > /mnt/etc/fstab
 
