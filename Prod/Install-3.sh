@@ -16,7 +16,7 @@ echo 'backend = "glx";
 glx-no-stencil = true;
 glx-copy-from-front = false;' >> ~/.config/picom/picom.conf
 
-sudo pacman -Sy nvidia-settings i3 xorg xorg-xinit nitrogen alacritty firefox thunar sddm ttf-firacode-nerd pipewire-jack pipewire-alsa pipewire-pulse qjackctl pavucontrol pass cifs-utils polybar rofi remmina freerdp python3 xclip htop qt5-quickcontrols2 qt5-graphicaleffects qt5-svg 
+sudo pacman -Sy nvidia-settings i3 xorg xorg-xinit nitrogen alacritty firefox thunar sddm ttf-firacode-nerd pipewire-jack pipewire-alsa pipewire-pulse qjackctl pavucontrol pass cifs-utils polybar rofi remmina freerdp python3 xclip htop qt5-quickcontrols2 qt5-graphicaleffects qt5-svg ncdu openrgb
 
 mkdir ~/.config/alacritty
 
@@ -43,5 +43,7 @@ git clone https://github.com/rototrash/tokyo-night-sddm.git ~/tokyo-night-sddm
 sudo mv ~/tokyo-night-sddm /usr/share/sddm/themes/
 
 sudo sed -i 's/Current=.*/Current=tokyo-night-sddm/g' /etc/sddm.conf.d/default.conf
+
+
 
 echo "Should be ready to update dot files"
