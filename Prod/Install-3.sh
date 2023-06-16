@@ -28,4 +28,8 @@ echo '[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx -vt1' >> ~/.bash_profil
 
 sudo systemctl enable sddm
 
+sudo pacman -Rns dmenu
+
+sudo ln -s /usr/bin/rofi /usr/bin/dmenu
+
 echo "Should be ready to update dot files"
