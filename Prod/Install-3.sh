@@ -8,7 +8,9 @@ cd ~/
 
 yay -S picom-git
 
-sudo cp /etc/xdg/picom.conf.example ~/.config/picom/picom.conf
+mkdir ~/.config/picom
+
+sudo cp /etc/xdg/picom.conf.example ~/.config/picom/
 
 echo 'backend = "glx";
 glx-no-stencil = true;
