@@ -36,10 +36,6 @@ echo "127.0.0.1      localhost
 
 cat /etc/hosts
 
-echo "wait"
-
-read $null
-
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
