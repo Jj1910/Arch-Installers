@@ -53,12 +53,12 @@ mkinitcpio -p linux
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --recheck
 
-grub-mkconfig -o /boot/grub/grub.cfg
-
 echo "menuentry 'Windows 10' {
 	search --fs-uuid --set=root 68F8-8219
 	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }" >> /etc/grub.d/40_custom
+
+grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable dhcpcd systemd-timesyncd
 
