@@ -6,7 +6,7 @@ timedatectl set-timezone America/New_York
 
 lsblk
 
-echo "Enter block device"
+echo "Enter block device (Don't include /dev/)"
 
 read blockdevice
 
