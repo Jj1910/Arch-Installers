@@ -58,7 +58,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 echo "menuentry 'Windows 10' {
 	search --fs-uuid --set=root 68F8-8219
 	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-}" >> /boot/grub/grub.cfg
+}" >> /boot/grub.d/40_custom
 
 systemctl enable dhcpcd systemd-timesyncd
 
