@@ -44,7 +44,7 @@ ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
 
-pacman -S grub efibootmgr dosfstools mtools
+pacman -Sy grub efibootmgr dosfstools mtools
 
 sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=10/g' /etc/default/grub
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on iommu=pt loglevel=4 nvidia_drm.modeset=1"/g' /etc/default/grub
