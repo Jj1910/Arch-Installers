@@ -4,13 +4,15 @@ setfont ter-132n
 
 timedatectl set-timezone America/New_York
 
+mdadm --create --verbose --level=0 --metadata=1.2 --raid-devices=2 /dev/md/LINUX /dev/nvme1n1 /dev/nvme2n1
+
 lsblk
 
 echo "Enter Disk (Don't include /dev/)"
 
 read disk
 
-cfdisk /dev/$disk
+fdisk /dev/$disk
 
 lsblk
 
