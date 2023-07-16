@@ -50,7 +50,7 @@ read packages
 
 pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano dhcpcd mdadm ntfs-3g nvidia gvim git vim openssh
 
-genfstab -U /mnt > /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
 
 lsblk
 
