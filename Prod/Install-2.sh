@@ -54,8 +54,8 @@ mkinitcpio -p linux
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --recheck
 
-echo "menuentry 'Windows 10' {
-	search --fs-uuid --set=root 68F8-8219
+echo "menuentry 'Windows 11' {
+	search --fs-uuid --set=root BA2C-C152
 	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }" >> /etc/grub.d/40_custom
 
