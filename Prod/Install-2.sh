@@ -48,6 +48,7 @@ sed -i 's/#GRUB_DISABLE_LINUX_UUID=true/GRUB_DISABLE_LINUX_UUID=true/g' /etc/def
 
 sed -i 's/MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g' /etc/mkinitcpio.conf
 sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
+sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
