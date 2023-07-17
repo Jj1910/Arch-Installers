@@ -4,7 +4,7 @@ setfont ter-132n
 
 timedatectl set-timezone America/New_York
 
-mdadm --create --verbose --level=0 --metadata=1.2 --raid-devices=2 /dev/md/LINUX /dev/nvme1n1 /dev/nvme2n1
+mdadm --create --verbose --level=0 --metadata=1.2 --raid-devices=2 /dev/md/LINUX /dev/nvme1n1p1 /dev/nvme2n1p1
 
 lsblk
 
