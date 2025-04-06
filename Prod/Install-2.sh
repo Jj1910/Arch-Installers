@@ -47,8 +47,9 @@ hwclock --systohc
 #sed -i 's/#GRUB_DISABLE_LINUX_UUID=true/GRUB_DISABLE_LINUX_UUID=true/g' /etc/default/grub
 
 sed -i 's/MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g' /etc/mkinitcpio.conf
-sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
-sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
+#sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
+sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block filesystems fsck)/g' /etc/mkinitcpio.conf
+#sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
@@ -67,9 +68,9 @@ echo "default arch.conf
 timeout 0
 console-mode auto" > /boot/loader/loader.conf
 
-echo "Enter EFI Partition UUID (PARTUUID)"
-
 blkid
+
+echo "Enter Root Partition UUID (PARTUUID)"
 
 read $partuuid
 
@@ -83,6 +84,6 @@ linux /vmlinuz-linux
 initrd /initramfs-linux-fallback.img
 options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch-fallback.conf
 
-systemctl enable dhcpcd systemd-timesyncd
+systemctl enable NetworkManager systemd-timesyncd
 
 exit
