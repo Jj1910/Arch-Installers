@@ -51,12 +51,12 @@
 #echo "Should be ready to update dot files"
 
 ## Typical Packages
-sudo pacman -S nvidia-settings firefox pipewire-jack pipewire-alsa pipewire-pulse qjackctl pass htop ncdu neofetch qtpass
+sudo pacman -S  pipewire-jack pipewire-alsa pipewire-pulse pass htop ncdu neofetch
 
 ## Bluetooth Packages
 sudo pacman -S bluez bluez-utils bluedevil
 
 ## Desktop Packages
-sudo pacman -S sddm plasma-desktop kscreen konsole dolphin plasma-pa
+sudo pacman -S sddm plasma-desktop kscreen konsole dolphin plasma-pa kde-gtk-config nvidia-settings firefox qtpass qjackctl
 
 sudo systemctl enable sddm
