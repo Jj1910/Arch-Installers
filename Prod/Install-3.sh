@@ -57,6 +57,6 @@ sudo pacman -S  pipewire-jack pipewire-alsa pipewire-pulse pass htop ncdu neofet
 sudo pacman -S bluez bluez-utils bluedevil
 
 ## Desktop Packages
-sudo pacman -S sddm plasma-desktop kscreen konsole dolphin plasma-pa kde-gtk-config nvidia-settings firefox qtpass qjackctl sddm-kcm plasma-nm plasma-systemmonitor
+sudo pacman -S sddm plasma-desktop kscreen konsole dolphin plasma-pa kde-gtk-config nvidia-settings firefox qtpass qjackctl sddm-kcm plasma-nm plasma-systemmonitor ksystemstats
 
 sudo systemctl enable sddm
