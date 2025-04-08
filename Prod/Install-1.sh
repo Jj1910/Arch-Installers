@@ -52,11 +52,11 @@ mount /dev/$efipart /mnt/boot
 
 lsblk
 
-echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano networkmanager nvidia git vim openssh cifs-utils)"
+echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano nvidia git vim openssh cifs-utils)"
 
 read packages
 
-pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano networkmanager nvidia git vim openssh cifs-utils timeshift
+pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano nvidia git vim openssh cifs-utils timeshift
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
