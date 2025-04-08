@@ -84,6 +84,13 @@ linux /vmlinuz-linux
 initrd /initramfs-linux-fallback.img
 options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch-fallback.conf
 
-systemctl enable NetworkManager systemd-timesyncd
+systemctl enable systemd-timesyncd
+
+echo "Enter IP and Subnet"
+read $IP
+# Networking without NetworkManager
+ip address add $IP broadcast + dev enp7s0
+ip link set enp7s0 up
+ip route add default via 192.168.0.1 dev enp7s0
 
 exit
