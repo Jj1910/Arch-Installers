@@ -50,6 +50,7 @@ sed -i 's/MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g' /e
 #sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
 sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block filesystems fsck)/g' /etc/mkinitcpio.conf
 #sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
+sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
@@ -112,6 +113,10 @@ Address=$IP
 Gateway=$Gateway
 DNS=$DNS" > /etc/systemd/network/network.network
 
+echo "# NAS-Storage
+//nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=10,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
+
 systemctl enable systemd-timesyncd systemd-networkd systemd-resolved
+systemctl disable systemd-networkd-wait-online
 
 exit
