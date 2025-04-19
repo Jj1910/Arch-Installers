@@ -54,9 +54,8 @@ sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
+## Grub Install
 #grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --recheck
-
-bootctl install
 
 #echo "menuentry 'Windows 11' {
 #	search --fs-uuid --set=root BA2C-C152
@@ -65,9 +64,12 @@ bootctl install
 
 #grub-mkconfig -o /boot/grub/grub.cfg
 
-echo "default arch.conf
-timeout 0
-console-mode auto" > /boot/loader/loader.conf
+## Systemd Install
+#bootctl install
+
+#echo "default arch.conf
+#timeout 0
+#console-mode auto" > /boot/loader/loader.conf
 
 blkid
 
@@ -75,15 +77,58 @@ echo "Enter Root Partition UUID (PARTUUID)"
 
 read $partuuid
 
-echo "title Arch Linux
-linux /vmlinuz-linux
-initrd /initramfs-linux.img
-options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch.conf
+#echo "title Arch Linux
+#linux /vmlinuz-linux
+#initrd /initramfs-linux.img
+#options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch.conf
 
-echo "title Arch Linux Fallback
-linux /vmlinuz-linux
-initrd /initramfs-linux-fallback.img
-options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch-fallback.conf
+#echo "title Arch Linux Fallback
+#linux /vmlinuz-linux
+#initrd /initramfs-linux-fallback.img
+#options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch-fallback.conf
+
+## UKI Booting
+
+echo '# mkinitcpio preset file for the 'linux' package
+
+#ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/vmlinuz-linux"
+
+PRESETS=('default' 'fallback')
+
+#default_config="/etc/mkinitcpio.conf"
+#default_image="/boot/initramfs-linux.img"
+default_uki="/boot/EFI/Linux/arch-linux.efi"
+default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
+
+#fallback_config="/etc/mkinitcpio.conf"
+#fallback_image="/boot/initramfs-linux-fallback.img"
+fallback_uki="/boot/EFI/Linux/arch-linux-fallback.efi"
+fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux.preset
+
+echo "root=PARTUUID=$partuuid rw intel_iommu=on iommu=pt" > /etc/kernel/cmdline
+
+pacman -S sbctl
+
+sbctl create-keys
+
+sbctl enroll-keys --microsoft
+
+mkinitcpio -P
+
+lsblk
+
+echo "Enter Boot Device"
+
+read $boot
+
+echo "Enter Boot Partition Number (Usually 1)"
+
+read $part
+
+efibootmgr --create --disk /dev/$boot --part $part --label "Arch Linux" --loader '\EFI\Linux\arch-linux.efi' --unicode
+
+efibootmgr --create --disk /dev/$boot --part $part --label "Arch Linux Fallback" --loader '\EFI\Linux\arch-linux-fallback.efi' --unicode
 
 # Networking without NetworkManager
 
