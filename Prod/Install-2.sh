@@ -91,7 +91,7 @@ read $partuuid
 
 echo '# mkinitcpio preset file for the 'linux' package
 
-#ALL_config="/etc/mkinitcpio.conf"
+ALL_config="/etc/mkinitcpio.conf"
 ALL_kver="/boot/vmlinuz-linux"
 
 PRESETS=('default' 'fallback')
