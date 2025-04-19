@@ -40,17 +40,29 @@ ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
 
+## Grub Configuration
 #pacman -Sy grub efibootmgr dosfstools mtools
 
 #sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=10/g' /etc/default/grub
 #sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on iommu=pt loglevel=4 nvidia_drm.modeset=1"/g' /etc/default/grub
 #sed -i 's/#GRUB_DISABLE_LINUX_UUID=true/GRUB_DISABLE_LINUX_UUID=true/g' /etc/default/grub
 
+## Only used for NVIDIA GPU
 sed -i 's/MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g' /etc/mkinitcpio.conf
+
+## Only used for NVIDIA GPU and RAID
 #sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
+
+## Only used for NVIDIA GPU and no RAID
 sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block filesystems fsck)/g' /etc/mkinitcpio.conf
+
+## Only used if creating a RAID Array
+
 #sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
-sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/g' /etc/mkinitcpio.conf
+
+## Only used if not using a UKI to boot
+
+#sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
