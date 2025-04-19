@@ -108,7 +108,7 @@ fallback_options="-S autodetect"' > /etc/mkinitcpio.d/linux.preset
 
 echo "root=PARTUUID=$partuuid rw intel_iommu=on iommu=pt" > /etc/kernel/cmdline
 
-pacman -S sbctl
+pacman -S sbctl efibootmgr
 
 sbctl create-keys
 
