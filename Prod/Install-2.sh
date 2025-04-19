@@ -171,7 +171,7 @@ Gateway=$Gateway
 DNS=$DNS" > /etc/systemd/network/network.network
 
 echo "# NAS-Storage
-//nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=10,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
+//nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=1,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
 
 systemctl enable systemd-timesyncd systemd-networkd systemd-resolved
 systemctl disable systemd-networkd-wait-online
