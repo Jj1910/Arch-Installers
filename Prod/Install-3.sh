@@ -60,6 +60,6 @@ sudo pacman -S bluez bluez-utils bluedevil
 sudo pacman -S sddm plasma-desktop kscreen konsole dolphin plasma-pa kde-gtk-config nvidia-settings firefox qtpass qjackctl sddm-kcm plasma-systemmonitor ksystemstats
 
 ## VM Packages
-sudo pacman -S libvirt edk2-ovmf virt-manager dnsmasq dmidecode qemu swtpm
+sudo pacman -S libvirt edk2-ovmf virt-manager dnsmasq dmidecode qemu-full swtpm
 
 sudo systemctl enable sddm
