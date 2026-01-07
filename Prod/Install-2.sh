@@ -170,6 +170,68 @@ Address=$IP
 Gateway=$Gateway
 DNS=$DNS" > /etc/systemd/network/network.network
 
+#Optional Bridge for VMs
+#echo "[Match]
+#Name=bond0
+
+#[Network]
+#Bridge=br0" > /etc/systemd/network/br0-bond.network
+
+#echo "[NetDev]
+#Name=br0
+#Kind=bridge" > /etc/systemd/network/br0.netdev
+
+#echo "[Match]
+#Name=br0
+
+#[Link]
+#RequiredForOnline=routable
+
+#[Network]
+#Description=Bridge with Bonded Interfaces
+#DHCP=ipv4
+#IPv6AcceptRA=no
+#LinkLocalAddressing=ipv4
+#DNS=1.1.1.1
+#
+#[DHCPv4]
+#UseDNS=no" > /etc/systemd/network/br0.network
+
+#Optional Bond Interface
+#echo "[NetDev]
+#Name=bond0
+#Kind=bond
+
+#[Bond]
+#Mode=active-backup
+#PrimaryReselectPolicy=always
+#MIIMonitorSec=1s" > /etc/systemd/network/bond0.netdev
+
+#echo "[Match]
+#Name=bond0
+
+#[Link]
+#RequiredForOnline=routable
+
+#[Network]
+#BindCarrier=EthernetAdapterName WifiAdapterName
+#DHCP=ipv4
+#IPv6AcceptRA=no
+#LinkLocalAddressing=ipv4" > /etc/systemd/network/bond0.network(.bak)
+
+#echo "[Match]
+#Name=EthernetAdapterName
+
+#[Network]
+#Bond=bond0
+#PrimarySlave=true" > /etc/systemd/network/bond0-eth.network
+
+#echo "[Match]
+#Name=wlo1
+
+#[Network]
+#Bond=bond0" > /etc/systemd/network/bond0-wifi.network
+
 echo "# NAS-Storage
 //nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=1,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
 
