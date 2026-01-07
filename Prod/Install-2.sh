@@ -174,6 +174,10 @@ echo "# NAS-Storage
 //nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=1,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
 
 systemctl enable systemd-timesyncd systemd-networkd systemd-resolved
-systemctl disable systemd-networkd-wait-online
+
+sudo rm -rf /etc/resolv.conf 
+ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+#systemctl disable systemd-networkd-wait-online
 
 exit
