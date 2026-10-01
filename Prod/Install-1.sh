@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 setfont ter-132n
 
 timedatectl set-timezone America/New_York
-
-#mdadm --create --verbose --level=0 --metadata=1.2 --raid-devices=2 /dev/md/LINUX /dev/nvme1n1p1 /dev/nvme2n1p1
 
 lsblk
 
@@ -52,17 +50,13 @@ mount /dev/$efipart /mnt/boot
 
 lsblk
 
-echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano nvidia git vim openssh cifs-utils)"
+echo "Enter Extra Packages to Install (Default: base base-devel linux linux-firmware linux-headers intel-ucode sudo nano nvidia git vim openssh cifs-utils timeshift)"
 
 read packages
 
 pacstrap -K -i /mnt $packages base base-devel linux linux-firmware linux-headers intel-ucode sudo nano nvidia git vim openssh cifs-utils timeshift
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
-
-#mdadm --detail --scan >> /mnt/etc/mdadm.conf
-
-#echo "Make sure to correct genfstab if RAID is configured"
 
 sleep 1
 

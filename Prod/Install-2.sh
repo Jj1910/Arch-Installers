@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "Enter Root Password"
 
@@ -40,64 +40,19 @@ ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 hwclock --systohc
 
-## Grub Configuration
-#pacman -Sy grub efibootmgr dosfstools mtools
-
-#sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=10/g' /etc/default/grub
-#sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on iommu=pt loglevel=4 nvidia_drm.modeset=1"/g' /etc/default/grub
-#sed -i 's/#GRUB_DISABLE_LINUX_UUID=true/GRUB_DISABLE_LINUX_UUID=true/g' /etc/default/grub
-
 ## Only used for NVIDIA GPU
 sed -i 's/MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g' /etc/mkinitcpio.conf
-
-## Only used for NVIDIA GPU and RAID
-#sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block mdadm_udev filesystems fsck)/g' /etc/mkinitcpio.conf
 
 ## Only used for NVIDIA GPU and no RAID
 sed -i 's/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont block filesystems fsck)/g' /etc/mkinitcpio.conf
 
-## Only used if creating a RAID Array
-
-#sed -i 's/BINARIES=.*/BINARIES=(/sbin/mdmon)/g' /etc/mkinitcpio.conf
-
-## Only used if not using a UKI to boot
-
-#sed -i 's/#COMPRESSION="lz4"/COMPRESSION="lz4"/g' /etc/mkinitcpio.conf
-
 mkinitcpio -p linux
-
-## Grub Install
-#grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --recheck
-
-#echo "menuentry 'Windows 11' {
-#	search --fs-uuid --set=root BA2C-C152
-#	chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-#}" >> /etc/grub.d/40_custom
-
-#grub-mkconfig -o /boot/grub/grub.cfg
-
-## Systemd Install
-#bootctl install
-
-#echo "default arch.conf
-#timeout 0
-#console-mode auto" > /boot/loader/loader.conf
 
 blkid
 
 echo "Enter Root Partition UUID (PARTUUID)"
 
 read $partuuid
-
-#echo "title Arch Linux
-#linux /vmlinuz-linux
-#initrd /initramfs-linux.img
-#options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch.conf
-
-#echo "title Arch Linux Fallback
-#linux /vmlinuz-linux
-#initrd /initramfs-linux-fallback.img
-#options root=PARTUUID=$partuuid rw" > /boot/loader/entries/arch-fallback.conf
 
 ## UKI Booting
 
@@ -144,93 +99,45 @@ efibootmgr --create --disk /dev/$boot --part $part --label "Arch Linux Fallback"
 
 # Networking without NetworkManager
 
-ip a
+#Optional Bridge for VMs
+echo '[NetDev]
+Name=bond0
+Kind=bond
 
-echo "Enter Device Name"
+[Bond]
+Mode=active-backup
+PrimaryReselectPolicy=always
+MIIMonitorSec=1s
+MACAddress=b6:77:d3:76:d4:00' > /etc/systemd/network/05-bond0.netdev
 
-read $Device
-
-echo "Enter IP with Subnet"
-
-read $IP
-
-echo "Enter Gateway IP"
-
-read $Gateway
-
-echo "Enter DNS Server"
-
-read $DNS
-
-echo "[Match]
-Name=$Device
+echo '[Match]
+Name=enp7s0
 
 [Network]
-Address=$IP
-Gateway=$Gateway
-DNS=$DNS" > /etc/systemd/network/network.network
+Bond=bond0
+PrimarySlave=true' > /etc/systemd/network/05-ethernet-bond0.network
 
-#Optional Bridge for VMs
-#echo "[Match]
-#Name=bond0
+echo '[Match]
+Name=wlo1
 
-#[Network]
-#Bridge=br0" > /etc/systemd/network/br0-bond.network
+[Network]
+Bond=bond0' > /etc/systemd/network/05-wifi-bond0.network
 
-#echo "[NetDev]
-#Name=br0
-#Kind=bridge" > /etc/systemd/network/br0.netdev
+echo '[Match]
+Name=bond0
 
-#echo "[Match]
-#Name=br0
+[Network]
+Bridge=br0' > /etc/systemd/network/10-br0-bond.network
 
-#[Link]
-#RequiredForOnline=routable
+echo '[NetDev]
+Name=br0
+Kind=bridge
+MACAddress=b6:77:d3:76:d4:00' > /etc/systemd/network/10-br0.netdev
 
-#[Network]
-#Description=Bridge with Bonded Interfaces
-#DHCP=ipv4
-#IPv6AcceptRA=no
-#LinkLocalAddressing=ipv4
-#DNS=1.1.1.1
-#
-#[DHCPv4]
-#UseDNS=no" > /etc/systemd/network/br0.network
-
-#Optional Bond Interface
-#echo "[NetDev]
-#Name=bond0
-#Kind=bond
-
-#[Bond]
-#Mode=active-backup
-#PrimaryReselectPolicy=always
-#MIIMonitorSec=1s" > /etc/systemd/network/bond0.netdev
-
-#echo "[Match]
-#Name=bond0
-
-#[Link]
-#RequiredForOnline=routable
-
-#[Network]
-#BindCarrier=EthernetAdapterName WifiAdapterName
-#DHCP=ipv4
-#IPv6AcceptRA=no
-#LinkLocalAddressing=ipv4" > /etc/systemd/network/bond0.network(.bak)
-
-#echo "[Match]
-#Name=EthernetAdapterName
-
-#[Network]
-#Bond=bond0
-#PrimarySlave=true" > /etc/systemd/network/bond0-eth.network
-
-#echo "[Match]
-#Name=wlo1
-
-#[Network]
-#Bond=bond0" > /etc/systemd/network/bond0-wifi.network
+echo 'Description=Bridge with Bonded Interfaces
+IPv6AcceptRA=no
+LinkLocalAddressing=no
+DHCP=ipv4' > /etc/systemd/network/10-br0.network
 
 echo "# NAS-Storage
 //nas/nas /NAS cifs _netdev,x-systemd.automount,x-systemd.mount-timeout=1,credentials=,uid=1000,gid=1000 0 0" >> /etc/fstab
@@ -239,7 +146,5 @@ systemctl enable systemd-timesyncd systemd-networkd systemd-resolved
 
 sudo rm -rf /etc/resolv.conf 
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-
-#systemctl disable systemd-networkd-wait-online
 
 exit
